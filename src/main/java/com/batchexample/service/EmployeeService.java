@@ -1,11 +1,13 @@
 package com.batchexample.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.batchexample.batch.EmployeeBatchItemReader;
 import com.batchexample.entity.Employee;
 import com.batchexample.repository.EmployeeRepository;
 
@@ -14,10 +16,24 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private EmployeeBatchItemReader employeeBatchItemReader;
 
 	public Optional<Employee> getEmployeeById(Long id) {
 		return employeeRepository.findById(id);
 	}
+	
+	public List<Employee> getAllEmployees(int chuckSize) throws Exception{
+		
+		List<Employee> listOfEmployees = employeeBatchItemReader.read();
+		return listOfEmployees;
+	}
+	
+	
+	
+	
+	//-----initial loading purpose-----------------
 
 	public void insertRandomEmployees(int count) {
 		for (int i = 0; i < count; i++) {

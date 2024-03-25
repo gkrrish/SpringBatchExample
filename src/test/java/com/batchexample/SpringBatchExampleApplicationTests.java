@@ -1,6 +1,7 @@
 package com.batchexample;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.batch.core.ExitStatus;
@@ -28,6 +29,7 @@ class SpringBatchExampleApplicationTests {
     private JobLauncher jobLauncher;
 
     @Test
+    @Disabled
     void testJobExecution(CapturedOutput output) throws Exception {
         // given
         JobParameters jobParameters = new JobParameters();

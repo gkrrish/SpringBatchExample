@@ -11,11 +11,8 @@ import com.batchexample.annotations.ForBatchProcessing;
 import com.batchexample.entity.Employee;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-	
+public interface EmployeeBatchProcessingRepository extends JpaRepository<Employee, Long> {
 	@ForBatchProcessing
 	@Query("SELECT e FROM Employee e ORDER BY e.id ASC")
-	List<Employee> readPage(@Param("chunkSize") int chunkSize);
-	
-	//findAllByIdGreaterThanOrderByIdAsc
+	public List<Employee> findEmployeesForBatch(@Param("chunkSize") int chunkSize);
 }
