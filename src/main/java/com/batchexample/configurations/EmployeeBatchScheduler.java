@@ -14,16 +14,16 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class EmployeeBatchScheduler {
 
-    @Autowired
-    private JobLauncher jobLauncher;
+	@Autowired
+	private JobLauncher jobLauncher;
 
-    @Autowired
-    @Qualifier("employeeModificationJob")
-    private Job employeeModificationJob; // Assuming the Job is named "employeeModificationJob"
+	@Autowired
+	@Qualifier("employeeModificationJob")
+	private Job employeeModificationJob;
 
-    @Scheduled(cron = "0 0/1 * * * ?") // Runs every hour (replace with your desired schedule)
-    public void runEmployeeModificationJob() throws Exception {
-        JobExecution execution = jobLauncher.run(employeeModificationJob, new JobParametersBuilder().toJobParameters());
-        System.out.println("Job Execution Status: " + execution.getStatus());
-    }
+	@Scheduled(cron = "0 0/1 * * * ?")
+	public void runEmployeeModificationJob() throws Exception {
+		JobExecution execution = jobLauncher.run(employeeModificationJob, new JobParametersBuilder().toJobParameters());
+		System.out.println("Job Execution Status: " + execution.getStatus());
+	}
 }
