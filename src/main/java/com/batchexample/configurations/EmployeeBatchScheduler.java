@@ -1,4 +1,4 @@
-package com.batchexample.configurations;
+/*package com.batchexample.configurations;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -27,3 +27,4 @@ public class EmployeeBatchScheduler {
 		System.out.println("Job Execution Status: " + execution.getStatus());
 	}
 }
+*/
