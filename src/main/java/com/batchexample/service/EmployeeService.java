@@ -47,12 +47,13 @@ public class EmployeeService {
 		return Optional.ofNullable(employeeRepository.findAll()).orElse(Collections.emptyList());
 	}
 
-	public void save(Chunk<? extends Employee> employees) {
+	public void save(Chunk<? extends List<Employee>> employees) {
+		
 		List<Employee> employeeList = new ArrayList<>();
-		for (Employee employee : employees) {
-			System.out.println("EmployeeService ::save() : " + employee.toString());
-			employeeList.add(employee);
+		for (List<Employee> emp : employees) {
+			employeeList.addAll(emp);
 		}
+		
 		employeeRepository.saveAll(employeeList);
 	}
 

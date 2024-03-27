@@ -1,5 +1,7 @@
 package com.batchexample.configurations;
 
+import java.util.List;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -40,10 +42,11 @@ public class EmployeeBatchConfig {
     @Bean(name="firstStep")
     Step firstStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
 		return new StepBuilder("firstStep", jobRepository)
-				.<Employee, Employee>chunk(2, transactionManager)
-				.reader(new EmployeeItemReader(employeeService))//without constructor also we can do
+				.<List<Employee>, List<Employee>>chunk(2, transactionManager)
+				.reader(new EmployeeItemReader(employeeService))
 				.processor(new EmployeeItemProcessor())
-				.writer(new EmployeeItemWriter(employeeService)).build();
+				.writer(new EmployeeItemWriter(employeeService))
+				.build();
 	}
 
 }

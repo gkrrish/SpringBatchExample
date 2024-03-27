@@ -1,5 +1,7 @@
 package com.batchexample.items;
 
+import java.util.List;
+
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
@@ -8,7 +10,7 @@ import org.springframework.batch.item.UnexpectedInputException;
 import com.batchexample.entity.Employee;
 import com.batchexample.service.EmployeeService;
 
-public class EmployeeItemReader implements ItemReader<Employee> {
+public class EmployeeItemReader implements ItemReader<List<Employee>> {
 	
 	private EmployeeService employeeService;
 
@@ -17,9 +19,8 @@ public class EmployeeItemReader implements ItemReader<Employee> {
 	}
 
 	@Override
-	public Employee read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-		employeeService.readRecords();
-		return null;
+	public List<Employee> read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+		return employeeService.readRecords();
 	}
 
 }
