@@ -1,9 +1,12 @@
 package com.batchexample.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.batch.item.Chunk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +41,19 @@ public class EmployeeService {
 		employee.setBeforeValue(new BigDecimal(1).setScale(2));
 		employee.setAfterValue(new BigDecimal(2).setScale(2));
 		return employee;
+	}
+
+	public List<Employee> readRecords() {
+		return Optional.ofNullable(employeeRepository.findAll()).orElse(Collections.emptyList());
+	}
+
+	public void save(Chunk<? extends Employee> employees) {
+		List<Employee> employeeList = new ArrayList<>();
+		for (Employee employee : employees) {
+			System.out.println("EmployeeService ::save() : " + employee.toString());
+			employeeList.add(employee);
+		}
+		employeeRepository.saveAll(employeeList);
 	}
 
 }

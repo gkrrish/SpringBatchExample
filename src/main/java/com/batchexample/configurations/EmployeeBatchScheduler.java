@@ -1,4 +1,4 @@
-/*package com.batchexample.configurations;
+package com.batchexample.configurations;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
@@ -18,13 +18,12 @@ public class EmployeeBatchScheduler {
 	private JobLauncher jobLauncher;
 
 	@Autowired
-	@Qualifier("employeeModificationJob")
-	private Job employeeModificationJob;
+	@Qualifier("processJob")
+	private Job processJob;
 
 	@Scheduled(cron = "0 0/1 * * * ?")
 	public void runEmployeeModificationJob() throws Exception {
-		JobExecution execution = jobLauncher.run(employeeModificationJob, new JobParametersBuilder().toJobParameters());
+		JobExecution execution = jobLauncher.run(processJob, new JobParametersBuilder().toJobParameters());
 		System.out.println("Job Execution Status: " + execution.getStatus());
 	}
 }
-*/
