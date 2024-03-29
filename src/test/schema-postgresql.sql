@@ -1,3 +1,4 @@
+--initally this tables should present in the database, beacuse JobRepository will be used this.
 CREATE TABLE BATCH_JOB_INSTANCE  (
                                      JOB_INSTANCE_ID BIGINT  NOT NULL PRIMARY KEY ,
                                      VERSION BIGINT ,

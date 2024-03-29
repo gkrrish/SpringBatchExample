@@ -1,0 +1,47 @@
+@Autowired
+	JobRepository jobRepository;
+
+is this default springboot provide the repository?
+
+No, while Spring Boot provides autoconfiguration for many functionalities, a default JobRepository is not automatically included. Here's why:
+
+Spring Batch Integration: Spring Boot focuses on simplifying development for various aspects of applications. Spring Batch is a separate library for batch processing tasks.
+Customization Needs: JobRepositories can be configured in different ways depending on your persistence needs. Spring Boot doesn't make assumptions about your specific requirements.
+Explicit Configuration: To use Spring Batch features, you typically need to explicitly include the necessary dependencies and configure them in your Spring Boot application.
+How to Provide a JobRepository:
+
+There are two main approaches to provide a JobRepository in your Spring Boot application:
+
+Autoconfiguration with DataSource:
+
+Add the spring-batch-core dependency to your pom.xml.
+Configure a DataSource bean for your database connection. Spring Batch will automatically create a SimpleJobRepository based on your DataSource.
+Manual Configuration:
+
+Add the spring-batch-core dependency to your pom.xml.
+Implement a JobRepositoryFactoryBean.
+Configure the JobRepositoryFactoryBean with details like DataSource, transaction manager, and other options.
+Create a bean of the JobRepositoryFactoryBean to get your JobRepository instance.
+Here's an example using the first approach (autoconfiguration with DataSource):
+
+Java
+@SpringBootApplication
+public class MyBatchApplication {
+
+  @Autowired
+  private JobRepository jobRepository;
+
+  // Your Job and Step configuration using jobRepository
+
+  public static void main(String[] args) {
+    SpringApplication.run(MyBatchApplication.class, args);
+  }
+}
+Use code with caution.
+Alternative (Manual Configuration):
+
+If you need more control over JobRepository configuration, you can refer to the Spring Batch documentation for examples using JobRepositoryFactoryBean.
+
+Summary:
+
+Spring Boot doesn't provide a default JobRepository as it assumes you'll integrate Spring Batch and configure it based on your specific needs. By including the necessary dependencies and using autoconfiguration or manual configuration, you can ensure a JobRepository is available for your Spring Batch Jobs in your Spring Boot application.
