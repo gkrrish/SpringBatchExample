@@ -27,6 +27,8 @@ import com.batchexample.service.EmployeeService;
 
 @Configuration
 public class EmployeeBatchConfig {
+	
+	//Best reference material : https://docs.spring.io/spring-batch/reference/index.html
 
 	@Autowired
 	EmployeeService employeeService;
@@ -46,6 +48,10 @@ public class EmployeeBatchConfig {
 				.preventRestart()
 				.build();
 	}
+    
+    //.start(stepA) for some flow we can implement this along we can write for conditions also
+	//.next(stepB)
+	//.next(stepC)
 
     @Bean(name="firstStep")
     Step firstStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
@@ -54,10 +60,14 @@ public class EmployeeBatchConfig {
 				.reader(new EmployeeItemReader(employeeService))
 				.processor(new EmployeeItemProcessor())
 				.writer(new EmployeeItemWriter(employeeService))
+				.readerIsTransactionalQueue()//to make the transaction
 				.listener(new JobReaderListener())
 				.listener(new JobProcessListener())
 				.listener(new JobWriterListener())
 				.listener(new JobSkipListener())
+				.faultTolerant()
+				.retryLimit(3)//retrying for 3 times still occurs, skipping
+				.skipPolicy(null)//write skip policy later
 				.build();
 	}
 
