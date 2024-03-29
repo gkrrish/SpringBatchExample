@@ -31,18 +31,18 @@ public class EmployeeBatchConfig {
 	@Autowired
 	PlatformTransactionManager transactionManager;
 
-    @Bean
+    @Bean(name="processJob")
     Job processJob(JobRepository jobRepository, @Qualifier("firstStep") Step firstStep) {
 		return new JobBuilder("processJob",jobRepository)
-				.flow(firstStep)
-				.end()
+				.start(firstStep)
+				.preventRestart()
 				.build();
 	}
 
     @Bean(name="firstStep")
     Step firstStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
 		return new StepBuilder("firstStep", jobRepository)
-				.<List<Employee>, List<Employee>>chunk(2, transactionManager)
+				.<List<Employee>, List<Employee>>chunk(1, transactionManager)
 				.reader(new EmployeeItemReader(employeeService))
 				.processor(new EmployeeItemProcessor())
 				.writer(new EmployeeItemWriter(employeeService))

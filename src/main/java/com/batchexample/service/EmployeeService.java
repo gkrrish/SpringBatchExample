@@ -46,9 +46,11 @@ public class EmployeeService {
 	public List<Employee> readRecords() {
 		return Optional.ofNullable(employeeRepository.findAll()).orElse(Collections.emptyList());
 	}
+	int initial=0;
 
 	public void save(Chunk<? extends List<Employee>> employees) {
-		
+		System.out.println("SERVICE:WRITE: "+initial);
+		initial++;
 		List<Employee> employeeList = new ArrayList<>();
 		for (List<Employee> emp : employees) {
 			employeeList.addAll(emp);

@@ -22,7 +22,7 @@ public class EmployeeBatchScheduler {
 	@Qualifier("processJob")
 	private Job processJob;
 
-	@Scheduled(cron = "0 0/15 * * * ?")
+	@Scheduled(cron = "0 0/1 * * * *")//every one minute
 	public void runProcessJob() throws Exception {
 		JobParameters jobParameters=new JobParametersBuilder()
 										.addLong("dateTime", System.currentTimeMillis())
