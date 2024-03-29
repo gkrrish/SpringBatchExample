@@ -26,5 +26,5 @@ public class EmployeeItemReader implements ItemReader<List<Employee>> {
 	}
 }
 /*
- * If Reader Available keep on Batch process will run, so some point we need to stop the Reader Data. 
+ * If Reader side data Available means, keep on Batch process will run, so some point we need to stop the Reader Data. 
  */
