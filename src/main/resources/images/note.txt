@@ -1,0 +1,2 @@
+docker pull springcloud/spring-cloud-dataflow-server
+docker run -p 9393:9393 springcloud/spring-cloud-dataflow-server
