@@ -66,7 +66,7 @@ public class EmployeeBatchConfig {
 				.listener(new JobWriterListener())
 				.listener(new JobSkipListener())
 				.faultTolerant()
-				.retryLimit(3)//retrying for 3 times still occurs, skipping
+				//.retryLimit(3)//retrying for 3 times still occurs, skipping
 				.skipPolicy(null)//write skip policy later
 				.build();
 	}
